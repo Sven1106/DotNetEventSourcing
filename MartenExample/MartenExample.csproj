@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Marten" Version="7.39.1"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.14"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\generators\EndpointsGenerator\EndpointsGenerator.csproj" OutputItemType="Analyzer"/>
+        <ProjectReference Include="..\generators\ProjectionEnumGenerator\ProjectionEnumGenerator.csproj" OutputItemType="Analyzer"/>
+    </ItemGroup>
+
+</Project>
