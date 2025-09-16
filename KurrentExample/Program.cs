@@ -14,14 +14,16 @@ const string connectionString =
 var settings = KurrentDBClientSettings.Create(connectionString);
 var client = new KurrentDBClient(settings);
 builder.Services.AddSingleton(client);
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwaggerUI(options =>
+        options.SwaggerEndpoint("/openapi/v1.json", "KurrentExample v1")
+    );
 }
 
 app.UseHttpsRedirection();
