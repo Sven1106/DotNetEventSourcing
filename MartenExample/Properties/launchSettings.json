@@ -1,6 +1,10 @@
 ﻿{
   "$schema": "https://json.schemastore.org/launchsettings.json",
   "profiles": {
+    "Generators": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "../MartenExample/MartenExample.csproj"
+    },
     "http": {
       "commandName": "Project",
       "dotnetRunMessages": true,

@@ -7,10 +7,13 @@ public abstract record DomainEvent
 {
     public static implicit operator EventData(DomainEvent @event)
     {
+        var type = @event.GetType();
+        var data = JsonSerializer.SerializeToUtf8Bytes(@event, type, JsonDefaults.Options);
+
         return new EventData(
             Uuid.NewUuid(),
-            @event.GetType().Name,
-            JsonSerializer.SerializeToUtf8Bytes(@event)
+            type.Name,
+            data
         );
     }
 }

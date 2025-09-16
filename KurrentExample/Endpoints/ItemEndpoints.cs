@@ -27,11 +27,12 @@ public abstract class ItemEndpoints : IEndpoint
                     return Results.BadRequest("Name is required.");
 
                 var itemId = Guid.NewGuid();
+                var @event = new ItemAdded(itemId, request.Name, request.Description, request.Tags, request.Quantity);
                 await client.AppendToStreamAsync(
                     $"item-{itemId}",
                     StreamState.NoStream,
                     [
-                        new ItemAdded(itemId, request.Name, request.Description, request.Tags, request.Quantity)
+                        @event
                     ],
                     cancellationToken: ct
                 );

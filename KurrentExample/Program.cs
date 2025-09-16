@@ -1,12 +1,30 @@
+using System.Text.Json.Serialization;
 using EndpointsGenerator;
 using KurrentDB.Client;
 using KurrentExample;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// 2) Wire op i ASP.NET Core for HTTP
+builder.Services.ConfigureHttpJsonOptions(o =>
+{
+    o.SerializerOptions.PropertyNamingPolicy = JsonDefaults.Options.PropertyNamingPolicy;
+    o.SerializerOptions.PropertyNameCaseInsensitive = JsonDefaults.Options.PropertyNameCaseInsensitive;
+    foreach (var c in JsonDefaults.Options.Converters)
+        o.SerializerOptions.Converters.Add(c);
+});
+
+builder.Services.Configure<JsonOptions>(o =>
+{
+    o.JsonSerializerOptions.PropertyNamingPolicy = JsonDefaults.Options.PropertyNamingPolicy;
+    o.JsonSerializerOptions.PropertyNameCaseInsensitive = JsonDefaults.Options.PropertyNameCaseInsensitive;
+    foreach (var c in JsonDefaults.Options.Converters)
+        o.JsonSerializerOptions.Converters.Add(c);
+});
 
 const string connectionString =
     "kurrentdb://admin:changeit@localhost:2113?tls=false&tlsVerifyCert=false";
